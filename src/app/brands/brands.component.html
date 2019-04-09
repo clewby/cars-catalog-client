@@ -1,0 +1,69 @@
+<div class="m-3">
+  <div class="m-3" *ngIf="!actionType">
+    <button class="btn btn-primary" (click)="onNew()">Add Brand</button>
+  </div>
+  <div class="m-3" *ngIf="actionType">
+    <form [formGroup]="brandForm" (ngSubmit)="onSubmit()">
+      <input type="hidden" formControlName="id">
+      <div class="form-row">
+        <div class="form-group col-md-6 required">
+          <label for="title-input" class="col-form-label">Title:</label>
+          <input class="form-control" type="text" formControlName="title">
+        </div>
+        <div class="form-group col-md-6 required">
+          <label for="founder-input" class="col-form-label">Founder:</label>
+          <input class="form-control" type="text" formControlName="founder">
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group col-md-6 required">
+          <label for="founded-input" class="col-form-label">Founded:</label>
+          <input class="form-control" type="text" formControlName="founded">
+        </div>
+        <div class="form-group col-md-6 required">
+          <label for="headquarters-input" class="col-form-label">Headquarters:</label>
+          <input class="form-control" type="text" formControlName="headquarters">
+        </div>
+      </div>
+      <div class="form-row">
+        <label for="headquarters-input" class="col-form-label">Overview:</label>
+        <div class="col-md-12">
+          <textarea class="form-control" type="text" formControlName="overview"></textarea>
+        </div>
+      </div>
+      <button type="submit" class="btn btn-success m-1" [disabled]="!brandForm.valid">{{actionType}}</button>
+      <button type="button" class="btn btn-primary m-1" (click)="onCancel()">Cancel</button>
+    </form>
+  </div>
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Title</th>
+        <th scope="col">Founder</th>
+        <th scope="col">Founded</th>
+        <th scope="col">Headquarters</th>
+        <th scope="col">Overview</th>
+        <th scope="col"></th>
+        <th scope="col"></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let brand of brands  | slice: pageSize | slice: 0:itemsPerPage">
+        <th scope="row">{{brand.id}}</th>
+        <td>{{brand.title}}</td>
+        <td>{{brand.founder}}</td>
+        <td>{{brand.founded}}</td>
+        <td>{{brand.headquarters}}</td>
+        <td>{{brand.overview}}</td>
+        <td>
+          <button type="button" class="btn btn-info" (click)="onEdit(brand)">Edit</button>
+        </td>
+        <td>
+          <button type="button" class="btn btn-danger" (click)="onDelete(brand)" *ngIf="!actionType">Delete</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <ngb-pagination class="d-flex justify-content-end" [collectionSize]="brands.length" #numPages [pageSize]="itemsPerPage" [(page)]="currentPage" (pageChange)="onPageChange(currentPage)"></ngb-pagination>
+</div>

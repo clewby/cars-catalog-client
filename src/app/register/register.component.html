@@ -1,0 +1,35 @@
+<div class="row justify-content-center align-items-center" style="height:90vh">
+    <div class="col-4">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Register as a new user:</h5>
+                <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+                    <div class="form-group">
+                        <input type="text" class="form-control" formControlName="userName" placeholder="User name" [ngClass]="{ 'is-invalid': submitted && formControls.userName.errors }">
+                        <div class="invalid-feedback">
+                            User name is required.
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" class="form-control" formControlName="firstName" placeholder="First name">
+                    </div>
+                    <div class="form-group">
+                        <input type="text" class="form-control" formControlName="lastName" placeholder="Last name">
+                    </div>
+                    <div class="form-group">
+                        <input type="password" class="form-control" formControlName="password" placeholder="Password" [ngClass]="{ 'is-invalid': submitted && formControls.password.errors }">
+                        <div class="invalid-feedback">
+                            Password is required.
+                        </div>
+                    </div>
+                    <div class="form-group">
+                      <button type="submit" [disabled]="loading" class="btn btn-primary">Register</button>
+                      or
+                      <a href="/login">Login</a>
+                    </div>
+                    <div *ngIf="error" class="alert alert-danger">{{error}}</div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
